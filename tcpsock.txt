@@ -1,0 +1,85 @@
+SERVERSIDE:-
+import java.net.*;
+import java.io.*;
+
+public class GreetingServer {
+    public static void main(String[] args) {
+        if (args.length < 1) {  // Ensure a port number is provided
+            System.out.println("Usage: java GreetingServer <port>");
+            return;
+        }
+
+        int port;
+        try {
+            port = Integer.parseInt(args[0]);  // Parse port number
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid port number.");
+            return;
+        }
+
+        try (ServerSocket serverSocket = new ServerSocket(port)) {  // Bind to port
+            System.out.println("Server is listening on port " + port);
+
+            while (true) {  // Keep accepting client connections
+                Socket server = serverSocket.accept();  // Accept a connection
+                System.out.println("Connected to " + server.getRemoteSocketAddress());
+
+                // Read message from client
+                DataInputStream in = new DataInputStream(server.getInputStream());
+                System.out.println("Client says: " + in.readUTF());
+
+                // Send response to client
+                DataOutputStream out = new DataOutputStream(server.getOutputStream());
+                out.writeUTF("Hello, client! Your message was received.");
+
+                server.close();  // Close client connection
+            }
+        } catch (IOException e) {
+            System.out.println("Server error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+run socket javac GreetingServer.java
+            java GreetingServer 5000 
+            javac GreetingClient.java
+            java GreetingClient localhost 5000
+
+
+CLIENTSIDE:-
+import java.net.*;
+import java.io.*;
+
+public class GreetingClient {
+   public static void main(String [] args) {
+      if (args.length < 2) {  // Ensure at least two arguments are passed
+         System.out.println("Usage: java GreetingClient <server> <port>");
+         return;
+      }
+
+      String serverName = args[0];
+      int port;
+
+      try {
+         port = Integer.parseInt(args[1]);
+      } catch (NumberFormatException e) {
+         System.out.println("Invalid port number.");
+         return;
+      }
+
+      try (Socket client = new Socket(serverName, port);
+           DataOutputStream out = new DataOutputStream(client.getOutputStream());
+           DataInputStream in = new DataInputStream(client.getInputStream())) {
+
+         System.out.println("Connecting to " + serverName + " on port " + port);
+         System.out.println("Just connected to " + client.getRemoteSocketAddress());
+
+         out.writeUTF("Hello from " + client.getLocalSocketAddress());
+         System.out.println("Server says: " + in.readUTF());
+
+      } catch (IOException e) {
+         System.out.println("Error: " + e.getMessage());
+         e.printStackTrace();
+      }
+   }
+}

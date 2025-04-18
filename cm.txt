@@ -1,0 +1,23 @@
+# | Command | Description
+1 | ping -t www.instagram.com | Pings continuously until interrupted (Windows only).
+2 | ping -a 8.8.8.8 | Resolves hostname from IP (reverse DNS lookup).
+3 | netstat | Shows active connections and listening ports.
+4 | nslookup www.google.com | Queries DNS to resolve domain names to IPs.
+5 | getmac | Displays MAC addresses of network interfaces.
+6 | tracert www.google.com | Traces the path to a host (shows each hop).
+7 | systeminfo | Shows system info including network adapter config.
+8 | pathping 192.168.0.1 | Combines ping + tracert + packet loss stats.
+9 | route print | Shows the system’s routing table.
+10 | nbtstat -s | Shows NetBIOS sessions table with statistics.
+11 | nbtstat -n | Lists local NetBIOS names and their status.
+# | Command | Description
+12 | ipconfig | Shows IP configuration of all network adapters.
+13 | ipconfig /all | Detailed info (MAC, DHCP, DNS, etc.).
+14 | ipconfig /release | Releases the current DHCP-assigned IP.
+15 | ipconfig /renew | Requests a new IP from DHCP.
+16 | arp -a | Displays the ARP (Address Resolution Protocol) table.
+17 | net view | Lists all shared resources and computers on network.
+18 | net use | Views or connects/disconnects to shared network drives.
+19 | net config workstation | Shows configuration details of the local workstation.
+20 | telnet hostname port | Tests connectivity to a specific port on a remote host.
+21 | powercfg /a | Shows available sleep states (good for diagnosing power/network sleep issues).

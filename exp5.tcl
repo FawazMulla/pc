@@ -1,0 +1,49 @@
+set ns [new Simulator]
+
+set tracefile [open ring.tr w]
+set nf [open ring.nam w]
+
+$ns trace-all $tracefile
+$ns namtrace-all $nf
+
+proc finish {} {
+    global ns tracefile nf
+    $ns flush-trace
+    close $tracefile
+    close $nf
+    exec nam ring.nam &
+    exit 0
+}
+
+set node1 [$ns node]
+set node2 [$ns node]
+set node3 [$ns node]
+set node4 [$ns node]
+set node5 [$ns node]
+
+$ns duplex-link $node1 $node2 10Mb 10ms DropTail
+$ns duplex-link $node2 $node3 10Mb 10ms DropTail
+$ns duplex-link $node3 $node4 10Mb 10ms DropTail
+$ns duplex-link $node4 $node5 10Mb 10ms DropTail
+$ns duplex-link $node1 $node5 10Mb 10ms DropTail
+$ns duplex-link $node2 $node4 10Mb 10ms DropTail
+
+$ns rtproto DV
+
+set tcp [new Agent/TCP]
+$ns attach-agent $node1 $tcp
+
+set sink [new Agent/TCPSink]
+$ns attach-agent $node5 $sink
+
+$ns connect $tcp $sink
+
+set ftp [new Application/FTP]
+$ftp attach-agent $tcp
+
+$ns at 1.0 "$ftp start"
+$ns rtmodel-at 3.0 down $node2 $node3
+$ns at 10.0 "finish"
+
+$ns run
+

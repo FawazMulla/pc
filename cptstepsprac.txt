@@ -1,0 +1,45 @@
+1. Place Devices
+Place one Cisco 2811 router, three Cisco 2960 switches, two PCs, and one server.
+
+2. Add Network Module
+Add NM-1FE-TX network module to the router.
+
+3. Connect Router and Switches
+Connect router's Fa0/0 to Switch 1, Fa0/1 to Switch 2, Fa0/2 to Switch 3 using straight-through cables.
+
+4. Label Switches with IP Address
+Label switches with corresponding IP addresses (e.g., 192.168.1.1, 192.168.2.1, 192.168.3.1).
+
+5. Configure Router Interfaces
+Access CLI, enter commands to configure router interfaces with IP addresses:
+
+bash
+Copy
+Edit
+en
+config t
+hostname R1
+int f0/0
+ip add 192.168.1.1 255.255.255.0
+no sh
+Repeat for all interfaces (Fa0/1, Fa0/2).
+
+6. Connect PCs and Server
+Connect PC1 to Switch 1, PC2 to Switch 2, and PC3 & Server to Switch 3 using straight-through cables.
+
+7. Configure PCs
+Assign static IPs to PCs:
+
+PC1: 192.168.1.2, Gateway: 192.168.1.1
+
+PC2: 192.168.2.2, Gateway: 192.168.2.1
+
+PC3: 192.168.3.2, Gateway: 192.168.3.1
+
+Configure server with IP 192.168.3.3 and DNS.
+
+8. Add Color Palette
+Use the color palette (press R) to color-code cables for easy identification.
+
+9. Verify Communication
+Ping between PCs and verify connectivity (e.g., from PC1: ping 192.168.2.2, ping 192.168.3.2).

@@ -1,0 +1,21 @@
+Router config
+1)Place 2811 router and 3-2960 switches
+2)add one NM-1FE-TX to the router
+3)connect all the rouer in a sequence
+4)add textbox ip 192.168.x.1 infront of the switches
+5)open cli on router and type following
+	en
+	config t
+	host 
+	hostname R1
+	int f0/0
+	ip add 192.168.1.1 255.255.255.0
+	no sh
+	do this for all switches
+	exit 
+	sh ip int brief 
+
+6)connect 2 switches with pc and 3rd one with a pc and a server
+7) configure the pc acc to textbox of switches also add dns of server
+8)add color palette 
+9) show working by ping ip
